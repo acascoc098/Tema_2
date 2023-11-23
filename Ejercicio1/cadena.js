@@ -19,22 +19,25 @@ console.log(concatenacion);
 console.log("-----------------------------------------------------------------------------");
 
 // e. Concatena cadenas usando una template string, muestra el valor de varias
-let simple = "TEMPLATE\n";
+// variables en el template string
+let simple = `TEMPLATE\n`;
 let templeit = simple + `Primera cadena -> ${concatenacion}`;
 console.log(templeit);
 console.log("-----------------------------------------------------------------------------");
 
-// variables en el template string
-console.log("-----------------------------------------------------------------------------");
-
 // f. Separa un texto que tenga varias frases en un array que tenga cada frase por
 // separado.
+let texto = ["En un lugar","de la mancha,","de cuyo normbre","no quieroa cordarme"];
+console.log(texto);
 console.log("-----------------------------------------------------------------------------");
 
 // g. Convierte un texto dado a minúsculas.
+let texto2 = "Tipo string. Secuencia de caracteres de 16 bits en Unicode.";
+console.log(texto2.toLowerCase());
 console.log("-----------------------------------------------------------------------------");
 
 // h. Convierte un texto dado a mayúsculas.
+console.log(texto2.toUpperCase());
 console.log("-----------------------------------------------------------------------------");
 
 // i. Recorre con un bucle el texto caracter a caracter imprimiéndolo.
