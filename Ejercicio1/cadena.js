@@ -87,7 +87,7 @@ console.log(cadenareves);
 console.log("-----------------------------------------------------------------------------");
 
 // q. Usa una expresión regular para comprobar que la cadena tiene números.
-let regex = /\w/;
+let regex = /[1-9]/;
 let cadenanum = "Cadena12"
 const tienennum = regex.test(cadenanum);
 let cadenanum2 = "CadenaSin"
