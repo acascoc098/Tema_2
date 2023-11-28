@@ -97,12 +97,32 @@ console.log(tienennum2);
 console.log("-----------------------------------------------------------------------------");
 
 // r. Usa una expresión regular para comprobar que la cadena termina en punto.
+let regex2 = /\.$/;
+let cadenapunto = 'Esta frase termina en punto y final.';
+const tienepunto = regex2.test(cadenapunto);
+console.log(tienepunto);
+let cadenapuntono = 'Esta frase termina no en punto y final';
+const notienepunto = regex2.test(cadenapuntono);
+console.log(notienepunto);
 console.log("-----------------------------------------------------------------------------");
 
 // s. Usa una expresión regular para comprobar que la cadena comienza por una
 // mayúscula.
+let regex3 = /^[A-Z]/;
+let cadenamayus = 'Mayúscula';
+const mayus = regex3.test(cadenamayus);
+console.log(mayus);
+let cadenanomayus = 'mayúscula';
+const mayusno = regex3.test(cadenamayus);
+console.log(mayusno);
 console.log("-----------------------------------------------------------------------------");
 
 // t. Usa una expresión regular para comprobar si la cadena contiene un teléfono
 // con código internacional.
+let regex4 = /\+\d{1,2}\d{8,}/;
+let cadenatel = "Mi número para comprobar es +12243234689";
+const numtel = regex4.test(cadenatel);
+console.log(numtel);
 console.log("-----------------------------------------------------------------------------");
+
+console.log(multicadena);
