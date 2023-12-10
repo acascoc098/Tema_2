@@ -1,0 +1,48 @@
+<!--9. Crea una página web que genere contraseñas aleatorias con una mezcla de letras,
+números y símbolos. La página tiene un input numérico en el que el usuario pone el
+tamaño de la contraseña a generar. La contraseña se mostrará al pulsar un botón.-->
+<!DOCTYPE html lang="es">
+
+<html>
+    <head>
+
+    </head>
+
+    <body>
+        <label for="label">¿Cuánto caracteres quieres que tenga tu contraseña?</label>
+        <input type="text" id="respuesta">
+        <button onclick="generarContraseña()">Generar contraseña</button>
+        <label for="label2" id="label2"></label>
+
+
+        <script>
+            function generarContraseña(){
+                const caracteres = [
+                        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+                        'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+                        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+                        'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+                        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                        '!', '@', '#', '$', '%', '^', '&', '*', '(', ')',
+                        '-', '_', '+', '=', '[', ']', '{', '}', ';', ':',
+                        ',', '.', '/', '<', '>', '?', '|', '\\', '"', '\'',
+                        '`', '~'
+                    ];
+
+                    let arrayContraseña = []
+
+              let numero=parseInt(document.getElementById("respuesta").value,10);
+             
+              for(i = 0; i < numero; i++){
+                let numeroRandom = Math.floor(Math.random() * caracteres.length) +1;
+                let letra = numeroRandom;
+                arrayContraseña.push(caracteres[letra]);
+              }
+              const miLabel = document.getElementById('label2');
+              miLabel.textContent = 'Tu contraseña es '+arrayContraseña.join('');
+           
+
+            }
+        </script>
+    </body>
+</html>
