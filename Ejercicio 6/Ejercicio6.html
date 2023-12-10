@@ -1,0 +1,56 @@
+<!--6. Crea una función que busque todas las ocurrencias de una palabra en un texto dado. La función retorna un array con las posiciones encontradas.-->
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Acertijos matemáticos simples</title>
+
+</head>
+
+<body>
+    <h1>Resuelve el siguiente acertijo matemático</h1>
+    <div id ="acertijo"></div>
+    <label for="respuesta">Resultado:</label>
+    <input type="text" id="respuesta">
+    <button onclick="verificarRespuesta()">¿Acertaste?</button>
+    
+    <script>
+    function generarAcertijo() {
+            
+            const num1 = Math.floor(Math.random()*21) ;
+            const num2 = Math.floor(Math.random()*21);
+        
+            const listaOperadores = ['+', '-'];
+            const cualOperador = Math.floor(Math.random() * listaOperadores.length);
+            const operador = listaOperadores[cualOperador];
+        
+            
+            document.getElementById('acertijo').textContent = `${num1} ${operador} ${num2}`;
+            
+            sessionStorage.setItem('respuestaCorrecta', eval(`${num1} ${operador} ${num2}`));
+        
+           
+        }
+        let contador =0;
+        
+        generarAcertijo();
+        function verificarRespuesta(){
+            const respuestaUsuario = parseInt(document.getElementById('respuesta').value, 10);
+            const respuestaCorrecta = parseInt(sessionStorage.getItem('respuestaCorrecta'), 10);
+           
+            if(respuestaUsuario === respuestaCorrecta){
+                alert("¡¡¡¡CORRECTO!!!!");
+                contador = contador+1;
+                generarAcertijo();
+            }else{
+                alert("Negativo, inténtalo de nuevo. Puntos: "+contador)
+            }
+        }
+
+        </script>
+
+
+</body>
+</html>
