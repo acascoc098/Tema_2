@@ -1,0 +1,53 @@
+<!--12. Implementa el cifrado César, un tipo de cifrado por sustitución en el que cada letra
+en el texto original es reemplazada por otra que se encuentra un número fijo de
+posiciones más adelante en el alfabeto. Crea una página web con un textarea que
+tenga el texto original. Al pulsar un botón se muestra debajo en otro textarea el texto cifrado.-->
+
+<!DOCTYPE html lang="es">
+<html>
+    <head>
+
+    </head>
+
+    <body>
+        <label for="label">Escriba un texto para cifrar</label>
+        <input type="text" id="respuesta">
+        <label for="label">¿Valor de la clave?</label>
+        <input type="number" id="respuesta2">
+        <button onclick="cifrar2()">Cifrado Cesar</button>
+        <textarea id="areadetexto"></textarea>
+
+        <script>
+
+            function cifrar2(){
+            let texto = document.getElementById('respuesta').value.toString();
+            let textoParaCifrar = texto.toUpperCase();
+            let clave = parseInt(document.getElementById('respuesta2').value,10);
+            
+            const abecedario = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            let array = []
+
+            for (let i = 0; i < textoParaCifrar.length; i++) {
+
+                for(j = 0; j < 27; j++){
+
+                      let caractertexto = textoParaCifrar.charAt(i);
+                      let caracterAbecedario = abecedario.charAt(j);
+
+                      if(caractertexto === caracterAbecedario){
+                            let caracter = abecedario.charAt(j + (clave%27));
+                            array.push(caracter);
+                      }
+                }     
+            }
+
+           
+            let textarea = document.getElementById('areadetexto');
+            let textoCifrado = array.join('');
+            textarea.value =  textoCifrado;
+                     
+            }
+     
+        </script>
+    </body>
+</html>
