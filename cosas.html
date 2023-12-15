@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cositas</title>
+    </head>
+    <body>
+        <p onclick="changeColor(this)">Cambia de color</p>
+        <p>Este párrafo también cambia de color</p>
+
+        <script>
+            function changeColor(elemento){
+                console.log(elemento.style.color)
+                elemento.style.color = "red";
+            };
+        </script>
+    </body>
+</html>
