@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .movie {
+            width: 500px;
+            border: black solid 1px;
+        }
+    </style>
+</head>
+<body>
+    <div id="movie_list"></div>
+    <div id="error"></div>
+    <script>
+        const generateMovie = (peli)=> {
+            const movie_list = document.getElementById("movie_list");
+            const div = document.createElement("div");
+            const title = document.createElement("h1");
+            const a = document.createElement('a');
+            const img = document.createElement("img");
+            div.className = "movie";
+            if (peli.homepage === "") {
+                title.textContent = peli.title;
+            } else {
+                a.href = peli.homepage;
+                a.textContent = peli.title;
+                title.appendChild(a);
+            }
+            img.src = "https://image.tmdb.org/t/p/w500/" + peli.poster_path;
+            img.width = 150;
+            div.appendChild(title);
+            div.appendChild(img);
+            movie_list.appendChild(div);
+        }
+
+        const generateError = () => {
+            document.getElementById("error").textContent = "No se ha podido cargar los datos";
+        }
+
+        const APIKEY = "fc10da82eb353838f2b9284aa7d4b9f4";
+
+        const busqueda = "El señor de los anillos";
+
+        fetch(`https://api.themoviedb.org/3/search/movie?api_key=${APIKEY}&language=es-ES&query=${busqueda}&page=1&include_adult=false`)
+        .then(response=>response.json())
+        .then(pelis=>{
+            pelis.results.forEach(peli => {
+                fetch(`https://api.themoviedb.org/3/movie/${peli.id}?api_key=${APIKEY}&language=en-US`)
+                .then(response=>response.json())
+                .then(detail=>generateMovie(detail))
+            });
+        }).catch((error)=>{generateError()})
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="texto"></p>
+    <script>
+        const getActivity = async () => {
+            const response = await fetch("https://www.boredapi22.com/api/activity");
+            if (response.status === 200) {
+                const data = await response.json();
+                return data;
+            }
+        }
+        const printData = async () => {
+            try {
+                const data = await getActivity();
+                document.getElementById("texto").textContent = data.activity;
+            } catch (error) {
+                document.getElementById("texto").innerHTML = "<b>Error al conectar con el servidor<b>";
+            }
+        }
+        printData();
+        console.log("Programa terminado");
+    </script>
+</body>
+</html>

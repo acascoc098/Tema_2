@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="texto"></p>
+    <script>
+        function boredActivity (done, error) {
+            let request = new XMLHttpRequest();
+            request.open("GET", "https://www.boredapi.com/api/activity");
+            request.onload = function () {
+                    if (request.status === 200) {
+                        done(request.responseText);
+                    } else {
+                        error();
+                    }
+                }
+            request.onerror = request.ontimeout = function (e) {
+                error();
+            }
+            request.send();
+        }
+        boredActivity(
+            (datos)=>{
+                const respuesta = JSON.parse(datos);
+                document.getElementById("texto").innerHTML = respuesta.activity;
+            }, 
+            ()=>{
+                document.getElementById("texto").innerHTML = "Error al conectar con el servidor";
+            }
+        );
+
+
+        //cargarDatos('{"activity":"Aprobar el examen de Javascript"}');
+        
+    </script>
+</body>
+
+</html>

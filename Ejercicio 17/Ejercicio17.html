@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ejercicio 17</title>
+    </head>
+    <body>
+        <p id="textoerror"></p>
+        <p id="personaslista"></p>
+
+        <script>
+            const generatePeople = (persona) =>{
+                const persons_lis = document.getElementById("personaslista");
+                const div = document.createElement("div");
+                const nombre = document.createElement("nombre");
+                const img = document.createElement("image");
+                const email = document.createElement("email");
+                const tel = document.createElement("telefono");
+                div.className = "persona";
+                nombre.textContent = persona.name.first + persona.name.last;
+                img.src = persona.picture.large;
+                img.width = 200;
+                email = persona.email;
+                tel = persona.phone;
+
+                div.appendChild(nombre);
+                div.appendChild(img);
+                div.appendChild(email);
+                div.appendChild(tel);
+
+
+            }
+            
+            fetch(`https://randomuser.me/api/?results=100`)
+            .then(response => response.json())
+            .then(personas =>{
+                personas.results.forEach(persona => {
+                    fetch(`https://randomuser.me/api/?results=100`)
+                    .then(response => response.json())
+                    .then(detail => generatePeople(detail))
+                });
+            }).catch((error) => document.getElementById("textoerror").textContent = "Error al conectar");
+        </script>
+    </body>
+</html>
