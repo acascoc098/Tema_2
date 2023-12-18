@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cronómetro</title>
+</head>
+<body>
+    <h1>Cronómetro</h1>
+    <label id="minutos">00</label>
+    <label id="puntos">:</label>
+    <label id="segundos">00</label> 
+    <button onclick="comenzarCronometro()">Comenzar</button>
+    <button onclick="pararCronometro()">Parar</button>
+    <button onclick="resetearCronometro()">Resetear</button>
+  
+  <script>
+
+        let contador = 0;
+        let minutos = 0;
+        let nuevosSegundos = document.getElementById('segundos');
+        let nuevosMinutos = document.getElementById('minutos');
+
+        function comenzarCronometro() {
+        intervalID = setInterval(actualizarSegundos, 1000);
+        }
+
+        function actualizarSegundos() {
+
+            if(contador == 60){
+                minutos = minutos +1;
+                contador = 0;
+                nuevosSegundos.textContent = `${contador}`;
+                nuevosMinutos.textContent = `${minutos}`
+
+                if(minutos < 10){
+                    nuevosMinutos.textContent = `0${minutos}`
+                }
+            }
+
+            if(contador < 10){
+                nuevosSegundos.textContent = `0${contador}`;
+            }else{
+            nuevosSegundos.textContent = `${contador}`;
+            }
+            contador++;
+        }
+
+        function pararCronometro(){
+            clearInterval(intervalID);
+            
+        }
+
+        function resetearCronometro(){
+            clearInterval(intervalID);
+            nuevosSegundos.textContent = `00`;
+                nuevosMinutos.textContent = `00`;
+                contador = 0;
+        }
+
+  </script>
+
+  
+</body>
+</html>
