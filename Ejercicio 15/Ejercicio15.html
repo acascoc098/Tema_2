@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Piedra, Papel, Tijera</title>
+</head>
+<body>
+  <h1>Piedra, Papel, Tijera</h1>
+  <div class="game">
+    <button id="rock">Piedra</button>
+    <button id="paper">Papel</button>
+    <button id="scissors">Tijera</button>
+  </div>
+  <div id="result"></div>
+  <script>
+    const buttons = document.querySelectorAll('button');
+    const resultDiv = document.getElementById('result');
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const playerSelection = button.id;
+        const computerSelection = ['rock', 'paper', 'scissors'][Math.floor(Math.random() * 3)];
+
+        const result = playRound(playerSelection, computerSelection);
+        resultDiv.textContent = result;
+      });
+    });
+
+    function playRound(playerSelection, computerSelection) {
+      if (playerSelection === computerSelection) {
+        return "¡Es un empate!";
+      } else if (
+        (playerSelection === 'rock' && computerSelection === 'scissors') ||
+        (playerSelection === 'paper' && computerSelection === 'rock') ||
+        (playerSelection === 'scissors' && computerSelection === 'paper')
+      ) {
+        return "¡Ganaste!";
+      } else {
+        return "¡Perdiste! Intenta de nuevo.";
+      }
+    }
+  </script>
+</body>
+</html>
