@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla de Multiplicar</title>
+</head>
+<body>
+
+    <h2>Selecciona la tabla de multiplicar:</h2>
+
+    <select id="tablaSelector" onchange="generarTabla()">
+        <option value="1">Tabla del 1</option>
+        <option value="2">Tabla del 2</option>
+        <option value="3">Tabla del 3</option>
+        <option value="4">Tabla del 4</option>
+      
+    </select>
+
+    <h3>Tabla de Multiplicar:</h3>
+
+    <table id="tablaMultiplicar">
+    
+    </table>
+
+    <script>
+        function generarTabla() {
+            var multiplicador = document.getElementById("tablaSelector").value;
+
+            var tabla = document.getElementById("tablaMultiplicar");
+
+            tabla.innerHTML = "";
+
+            for (var i = 1; i <= 10; i++) {
+                var fila = tabla.insertRow();
+                var celda1 = fila.insertCell(0);
+                var celda2 = fila.insertCell(1);
+
+            
+                celda2.innerHTML = i * multiplicador;
+            }
+        }
+    </script>
+
+</body>
+</html>
