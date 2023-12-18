@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Listado de Pokémon</title>
+</head>
+<body>
+  <h1>Listado de Pokémon</h1>
+  <div id="pokemonList" class="pokemon-list"></div>
+  <div class="pagination">
+    <button id="prevButton" class="btn" disabled>Anterior</button>
+    <button id="nextButton" class="btn">Siguiente</button>
+  </div>
+  <script>
+    const pokemonList = document.getElementById('pokemonList');
+const prevButton = document.getElementById('prevButton');
+const nextButton = document.getElementById('nextButton');
+let offset = 0;
+const limit = 20;
+
+function fetchPokemons() {
+  fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`)
+    .then(response => response.json())
+    .then(data => {
+      pokemonList.innerHTML = '';
+      data.results.forEach(pokemon => {
+        fetchPokemonDetails(pokemon.url);
+      });
+      updatePagination(data.previous, data.next);
+    })
+    .catch(error => console.log(error));
+}
+
+function fetchPokemonDetails(url) {
+  fetch(url)
+    .then(response => response.json())
+    .then(pokemon => {
+      const pokemonDiv = document.createElement('div');
+      pokemonDiv.classList.add('pokemon');
+
+      pokemonDiv.innerHTML = `
+        <h2>${pokemon.name}</h2>
+        <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+        <p>Peso: ${pokemon.weight}</p>
+        <p>Experiencia: ${pokemon.base_experience}</p>
+        <p>Habilidades:</p>
+        <ul>
+          ${pokemon.abilities.map(ability => `<li>${ability.ability.name}</li>`).join('')}
+        </ul>
+      `;
+
+      pokemonList.appendChild(pokemonDiv);
+    })
+    .catch(error => console.log(error));
+}
+
+function updatePagination(previous, next) {
+  prevButton.disabled = !previous;
+  nextButton.disabled = !next;
+}
+
+prevButton.addEventListener('click', () => {
+  offset -= limit;
+  fetchPokemons();
+});
+
+nextButton.addEventListener('click', () => {
+  offset += limit;
+  fetchPokemons();
+});
+
+fetchPokemons();
+
+  </script>
+</body>
+</html>
