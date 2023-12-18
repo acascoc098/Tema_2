@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Buscador de Películas</title>
+</head>
+<body>
+  <h1>Buscador de Películas</h1>
+  <form id="searchForm" class="search-form">
+    <input type="text" id="searchInput" placeholder="Buscar película...">
+    <button type="submit">Buscar</button>
+  </form>
+  <div id="movies" class="movies"></div>
+  <script>
+    const searchForm = document.getElementById('searchForm');
+const searchInput = document.getElementById('searchInput');
+const moviesContainer = document.getElementById('movies');
+const API_KEY = 'fc10da82eb353838f2b9284aa7d4b9f4';
+
+searchForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const query = searchInput.value;
+  if (query.trim() !== '') {
+    const movies = await searchMovies(query);
+    displayMovies(movies.results);
+  }
+});
+
+function searchMovies(query) {
+  const url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${query}`;
+  return fetch(url)
+    .then(response => response.json())
+    .catch(error => console.log(error));
+}
+
+function displayMovies(movies) {
+  moviesContainer.innerHTML = '';
+  movies.forEach(movie => {
+    const movieDiv = document.createElement('div');
+    movieDiv.classList.add('movie');
+
+    movieDiv.innerHTML = `
+      <h2>${movie.title}</h2>
+      <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="${movie.title}">
+      <p>${movie.overview}</p>
+      <button class="favorite-btn" data-id="${movie.id}">Marcar como favorita</button>
+    `;
+
+    movieDiv.querySelector('.favorite-btn').addEventListener('click', toggleFavorite);
+    moviesContainer.appendChild(movieDiv);
+  });
+}
+
+function toggleFavorite(event) {
+  const movieId = event.target.dataset.id;
+  const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  
+  if (favorites.includes(movieId)) {
+    favorites.splice(favorites.indexOf(movieId), 1);
+  } else {
+    favorites.push(movieId);
+  }
+
+  localStorage.setItem('favorites', JSON.stringify(favorites));
+  displayFavorites();
+}
+
+function displayFavorites() {
+  const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  const favoriteButtons = document.querySelectorAll('.favorite-btn');
+
+  favoriteButtons.forEach(button => {
+    const movieId = button.dataset.id;
+    if (favorites.includes(movieId)) {
+      button.innerHTML = 'Favorita';
+    } else {
+      button.innerHTML = 'Marcar como favorita';
+    }
+  });
+}
+
+  </script>
+</body>
+</html>
